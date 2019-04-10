@@ -1,0 +1,22 @@
+{
+  "name": "lazyanimate",
+  "version": "0.1.0",
+  "description": "Use CSS animations on load or scroll.",
+  "main": "dist/index.js",
+  "repository": "github.com/sky-foundry/lazyanimate",
+  "author": "Sky Foundry <info@skyfoundry.agency>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "prettier": "^1.16.4",
+    "tslint": "^5.15.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.4.3"
+  },
+  "files": [
+    "dist"
+  ]
+}
