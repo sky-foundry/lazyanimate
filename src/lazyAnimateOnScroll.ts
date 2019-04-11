@@ -1,7 +1,7 @@
 import { lazyAnimateElement } from './lazyAnimateElement'
 
 /**
- * Applies lazy animate to all elements when intersection observer fires
+ * Applies lazy animate to all elements when intersection observer fires.
  *
  * @param parentEl element to add intersection observer to
  * @param threshold percentages to watch for intersection

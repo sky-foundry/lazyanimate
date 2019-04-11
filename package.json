@@ -1,6 +1,6 @@
 {
   "name": "lazyanimate",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Use CSS animations on load or scroll.",
   "main": "dist/index.js",
   "repository": "github.com/sky-foundry/lazyanimate",

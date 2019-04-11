@@ -4,15 +4,17 @@
 ## Installation
 
 1. Install package as dependency
-   ```js
+   ```bash
    yarn add lazyanimate
    # or
    npm install lazyanimate
    ```
 
-2. Import functions in your script
+2. Import functions in your script and create an instance
    ```js
-   import { ... } from 'lazyanimate'
+   import LazyAnimate from 'lazyanimate'
+
+   const lazyAnimate = new LazyAnimate()
    ```
 
 ## Basic Usage
@@ -45,9 +47,10 @@ Add CSS animation keyframes and apply duration and timing function:
 Initialize lazyanimate in your JavaScript:
 
 ```js
-import { lazyAnimateAllOnLoad } from 'lazyanimate'
+import LazyAnimate from 'lazyanimate'
 
-lazyAnimateAllOnLoad()
+const lazyAnimate = new LazyAnimate()
+lazyAnimate.lazyAnimateAllOnLoad()
 ```
 
 ## data-animate attribute
@@ -69,28 +72,33 @@ Eg: `data-animate="{ 'slide-in': true, 'slide-in-tablet': '(min-width: 768px)' }
 Loads all lazyanimate animations on load or instantly if already loaded.
 
 ```js
-import { lazyAnimateAllOnLoad } from 'lazyanimate'
+import LazyAnimate from 'lazyanimate'
 
-lazyAnimateAllOnLoad()
+const lazyAnimate = new LazyAnimate()
+lazyAnimate.lazyAnimateAllOnLoad()
 ```
 
 ### lazyAnimateElement
 Applies a CSS animation to an element based on it's data-animate.
 
 ```js
-import { lazyAnimateElement } from 'lazyanimate'
+import LazyAnimate from 'lazyanimate'
 
 const el = document.getElementById('...')
-lazyAnimateElement(el)
+
+const lazyAnimate = new LazyAnimate()
+lazyAnimate.lazyAnimateElement(el)
 ```
 
 ### lazyAnimateOnScroll
 Applies lazy animate to all elements when intersection observer fires.
 
 ```js
-import { lazyAnimateOnScroll } from 'lazyanimate'
+import LazyAnimate from 'lazyanimate'
 
 const scrollContainer = document.getElementById('...')
 const thresholdPercent = 0.8
-lazyAnimateOnScroll(scrollContainer, thresholdPercent)
+
+const lazyAnimate = new LazyAnimate()
+lazyAnimate.lazyAnimateOnScroll(scrollContainer, thresholdPercent)
 ```
