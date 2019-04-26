@@ -9,7 +9,8 @@ import { lazyAnimateElement } from './lazyAnimateElement'
  */
 export function lazyAnimateOnScroll(
   parentEl: HTMLElement,
-  threshold: number | number[]
+  threshold: number | number[],
+  className: string = 'lazyanimate'
 ): () => void {
   const observer = new IntersectionObserver(
     (observed, observer) => {
@@ -20,7 +21,7 @@ export function lazyAnimateOnScroll(
 
       if (observed[0].isIntersecting) {
         observer.disconnect()
-        const els = observed[0].target.getElementsByClassName('lazyanimate')
+        const els = observed[0].target.getElementsByClassName(className)
         if (!els) {
           return
         }

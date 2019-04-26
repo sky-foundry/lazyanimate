@@ -1,26 +1,23 @@
 import { lazyAnimateAllOnLoad } from './lazyAnimateAllOnLoad'
 import { lazyAnimateElement } from './lazyAnimateElement'
 import { lazyAnimateOnScroll } from './lazyAnimateOnScroll'
+import { default as _injectStyles } from './utils/injectStyles'
 
 export default class LazyAnimate {
   public lazyAnimateAllOnLoad = lazyAnimateAllOnLoad
   public lazyAnimateElement = lazyAnimateElement
-  public lazyAnimateOnScroll = lazyAnimateOnScroll
 
-  constructor(injectStyles: boolean = true) {
-    injectStyles && this.injectStyles()
+  private className: string
+
+  constructor({ injectStyles = true, className = 'lazyanimate' }) {
+    this.className = className
+    injectStyles && _injectStyles(this.className)
   }
 
-  private injectStyles() {
-    const styleEl = document.createElement('style')
-    styleEl.type = 'text/css'
-    document.head.appendChild(styleEl)
-
-    const textNodeEl = document.createTextNode(`
-      .lazyanimate:not(.lazyanimate-init) {
-        opacity: 0;
-      }
-    `)
-    styleEl.appendChild(textNodeEl)
+  public lazyAnimateOnScroll(
+    parentEl: HTMLElement,
+    threshold: number | number[]
+  ) {
+    return lazyAnimateOnScroll(parentEl, threshold, this.className)
   }
 }
