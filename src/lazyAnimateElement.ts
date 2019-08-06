@@ -1,4 +1,16 @@
 import animationInit from './utils/animationInit'
+import applyStyle from './utils/applyStyle'
+
+interface AnimateSettings {
+  name: string | { [key: string]: string | boolean }
+  delay?: string | number
+  direction?: string
+  duration?: string | number
+  fillMode?: string
+  iterationCount?: number
+  playState?: string
+  timingFunction?: string
+}
 
 /**
  * Applies a CSS animation to an element based on it's data-animate.
@@ -6,28 +18,35 @@ import animationInit from './utils/animationInit'
  * @param el element to apply animation to
  */
 export function lazyAnimateElement(el: HTMLElement) {
-  const animations = el.getAttribute('data-animate')
-  if (!animations) {
+  const animateData = el.getAttribute('data-animate')
+  if (!animateData) {
     return
   }
 
-  if (animations.indexOf('{') !== -1) {
-    // Interpret as JS object
-    // tslint:disable-next-line: no-eval
-    const animationsObj = eval(`(${animations})`)
+  let animateSettings: AnimateSettings | null = null
+
+  if (animateData.indexOf('{') !== -1) {
+    animateSettings = eval(`(${animateData})`) as AnimateSettings
     let fallbackAnimationName = null
     let setAnimationName = null
-    for (const animationName in animationsObj) {
-      if (animationsObj.hasOwnProperty(animationName)) {
-        if (animationsObj[animationName] === true) {
-          fallbackAnimationName = animationName
-          continue
-        }
-        if (window.matchMedia(animationsObj[animationName]).matches) {
-          setAnimationName = animationName
+
+    if (typeof animateSettings.name === 'string') {
+      setAnimationName = animateSettings.name
+    } else {
+      for (const animationName in animateSettings.name) {
+        if (animateSettings.name.hasOwnProperty(animationName)) {
+          const value = animateSettings.name[animationName]
+          if (value === true) {
+            fallbackAnimationName = animationName
+            continue
+          }
+          if (typeof value === 'string' && window.matchMedia(value).matches) {
+            setAnimationName = animationName
+          }
         }
       }
     }
+
     if (!setAnimationName) {
       setAnimationName = fallbackAnimationName
     }
@@ -35,12 +54,20 @@ export function lazyAnimateElement(el: HTMLElement) {
       return
     }
 
-    el.style.animationName = setAnimationName
-    animationInit(el)
-
-    return
+    animateSettings.name = setAnimationName
   }
 
-  el.style.animationName = animations
-  animationInit(el)
+  if (animateSettings) {
+    applyStyle(el, 'animationTimingFunction', animateSettings.timingFunction)
+    applyStyle(el, 'animationPlayState', animateSettings.playState)
+    applyStyle(el, 'animationIterationCount', animateSettings.iterationCount)
+    applyStyle(el, 'animationFillMode', animateSettings.fillMode)
+    applyStyle(el, 'animationDuration', animateSettings.duration, true)
+    applyStyle(el, 'animationDirection', animateSettings.direction)
+    applyStyle(el, 'animationDelay', animateSettings.delay, true)
+
+    el.style.animationName = animateSettings.name as string
+
+    animationInit(el)
+  }
 }

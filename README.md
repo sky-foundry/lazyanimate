@@ -1,9 +1,11 @@
 # Lazy Animate
+
 ### Use CSS animations on load or scroll.
 
 ## Installation
 
 1. Install package as dependency
+
    ```bash
    yarn add lazyanimate
    # or
@@ -11,6 +13,7 @@
    ```
 
 2. Import functions in your script and create an instance
+
    ```js
    import LazyAnimate from 'lazyanimate'
 
@@ -23,13 +26,13 @@ Lazy animate an element by adding a class of `lazyanimate` and a `data-animate` 
 
 ```html
 <!-- HTML -->
-<div class="my-div lazyanimate" data-animate="slide-in">
-</div>
+<div class="my-div lazyanimate" data-animate="slide-in"></div>
 ```
 
 Add CSS animation keyframes and apply duration and timing function:
 
-*Note that you should not apply the animation name to your elements as lazyanimate will do this for you via the data-animate attribute.*
+_Note that you should not apply the animation name to your elements as lazyanimate will do this for you via the data-animate attribute._
+
 ```css
 /* CSS */
 .my-div {
@@ -61,14 +64,25 @@ The `data-animate` attribute accepts either a string or a JavaScript object.
 
 Eg: `data-animate="slide-in"`
 
-**If a JS object is passed in**, you can apply media queries to decide which animation name to use.
-The keys of the object are the animation names, and the values are the media queries. You should have one key with a value of `true` which will be the fallback animation.
+**If a JS object is passed in**, you can apply any css property prefixed with `animation-`.
 
-Eg: `data-animate="{ 'slide-in': true, 'slide-in-tablet': '(min-width: 768px)' }"`
+```html
+data-animate="{ name: '', delay: 0, direction: '', duration: 0, fillMode: '',
+iterationCount: 1, playState: '', timingFunction: '' }"
+```
+
+You can also change the animation name using a media query string.
+You should have one key with a value of `true` which will be the fallback animation.
+
+```html
+data-animate="{ name: { 'slide-in': true, 'slide-in-tablet': '(min-width:
+768px)' } }"
+```
 
 ## API
 
 ### lazyAnimateAllOnLoad
+
 Loads all lazyanimate animations on load or instantly if already loaded.
 
 ```js
@@ -79,6 +93,7 @@ lazyAnimate.lazyAnimateAllOnLoad()
 ```
 
 ### lazyAnimateElement
+
 Applies a CSS animation to an element based on it's data-animate.
 
 ```js
@@ -91,6 +106,7 @@ lazyAnimate.lazyAnimateElement(el)
 ```
 
 ### lazyAnimateOnScroll
+
 Applies lazy animate to all elements when intersection observer fires.
 
 ```js
