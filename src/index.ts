@@ -9,7 +9,7 @@ export default class LazyAnimate {
 
   private className: string
 
-  constructor({ injectStyles = true, className = 'lazyanimate' }) {
+  constructor({ injectStyles = true, className = 'lazyanimate' } = {}) {
     this.className = className
     injectStyles && _injectStyles(this.className)
   }
