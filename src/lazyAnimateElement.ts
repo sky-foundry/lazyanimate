@@ -55,6 +55,10 @@ export function lazyAnimateElement(el: HTMLElement) {
     }
 
     animateSettings.name = setAnimationName
+  } else {
+    animateSettings = {
+      name: animateData,
+    }
   }
 
   if (animateSettings) {
